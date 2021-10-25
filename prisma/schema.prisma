@@ -16,3 +16,8 @@ model driver {
   firstName String @db.VarChar(225)
   lastName  String @db.VarChar(225)
 }
+
+model car {
+  id    Int    @id @default(autoincrement())
+  model String @db.VarChar(225)
+}
