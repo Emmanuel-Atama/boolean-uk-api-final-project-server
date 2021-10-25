@@ -10,7 +10,8 @@ const prisma = new PrismaClient({
 })
 
 prisma.$on("query", async event => {
-    console.log({ event })
+    console.log("Query: \n", event.query)
+    console.log("Params: \n", event.params)
   })
 
 module.exports = prisma
