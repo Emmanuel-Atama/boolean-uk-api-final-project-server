@@ -24,6 +24,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "nodeman": "^1.1.2",
     "prisma": "^3.3.0"
   }
 }
