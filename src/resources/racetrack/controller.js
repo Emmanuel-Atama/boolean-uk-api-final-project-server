@@ -28,17 +28,15 @@ const getOneRacetrackById = async (req, res) => {
 }
 
 const updateRacetrackById = async (req, res) => {
-    console.log("Books Router [UPDATE]", {params: req.params, body: req.body})
-    const id = req.params.id
-    const { trackName, countryName, laps } = req.body
-  
-    const updatedRacetrack = req.body
+    const { trackName, countryName, laps } = req.body;
     try {
 const result = await prisma.racetrack.update({
-    where: { id },
-    data: {updatedRacetrack}
+    where: {
+        id: parseInt(req.params.id),
+     },
+    data: req.body,
 })
-res.json({data: result})
+res.json({data: [result.trackName, result.countryName, result.laps]})
     } catch (error) {
         console.error({error})
     

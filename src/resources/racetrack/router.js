@@ -8,9 +8,8 @@ router.get("/", getAllRacetracks)
 
 router.get("/:id", getOneRacetrackById)
 
-router.put("/:Id", updateRacetrackById)
+router.put("/:id", updateRacetrackById)
 
 router.post("/", createOneRacetrackAndCompetition)
 
 module.exports = router;
- 
