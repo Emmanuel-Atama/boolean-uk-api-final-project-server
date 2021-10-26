@@ -65,5 +65,5 @@ model Racetrack {
   trackName   String        @db.VarChar(225)
   countryName String        @db.VarChar(225)
   laps        Int
-  Competition Competition[]
+  competition Competition[]
 }

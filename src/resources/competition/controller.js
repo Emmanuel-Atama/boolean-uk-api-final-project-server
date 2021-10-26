@@ -11,3 +11,4 @@ try {
 }
 }
 module.exports = { getAllCompetitions}
+
