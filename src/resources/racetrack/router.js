@@ -1,10 +1,13 @@
 const express = require("express");
 
-const {getAllRacetracks} = require("./controller")
+const {getAllRacetracks, updateRacetrackById, getOneRacetrackById} = require("./controller")
 
 const router = express.Router();
 
 router.get("/", getAllRacetracks)
 
-module.exports = router;
- 
+router.get("/:id", getOneRacetrackById)
+
+router.put("/:Id", updateRacetrackById)
+
+module.exports = router
