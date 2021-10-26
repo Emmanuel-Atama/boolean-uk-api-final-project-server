@@ -11,42 +11,74 @@ try {
 }
 }
 
-// POST for creating a record and a related record
+const getOneRacetrackById = async (req, res) => {
+    console.log("req.params", req.params.id)
+    try{
+        const racetrack = await prisma.racetrack.findUnique({
+            where: {
+                id: parseInt(req.params.id),
+            },
+        })
+        res.json({data: racetrack});
+    }
+    catch(error){
+        console.error(error)
+        res.status(500).json({error})
+    }
+}
 
+const updateRacetrackById = async (req, res) => {
+    const { trackName, countryName, laps } = req.body;
+    try {
+const result = await prisma.racetrack.update({
+    where: {
+        id: parseInt(req.params.id),
+     },
+    data: req.body,
+})
+res.json({data: [result.trackName, result.countryName, result.laps]})
+    } catch (error) {
+        console.error({error})
+    
+        res.status(500).json({error: error.message})
+    }
+}
 
-
-function createOneRacetrackAndCompetition (req,res){
+const createOneRacetrackAndCompetition = async (req,res) => {
     const bodyRacetrack = req.body
     const bodyCompetition = req.body.competition
     delete bodyRacetrack.competition
 
     console.log("bodyCompetition", bodyCompetition)
-    prisma.racetrack.create({
-        data: {
-            ...bodyRacetrack,
-            competition: {
-             create: [
-                 {
-                     ...bodyCompetition,
-                     date: new Date(bodyCompetition.date)
-                 },
-             ],
+    try {
+        const result = await prisma.racetrack.create({
+            data: {
+                ...bodyRacetrack,
+                competition: {
+                 create: [
+                     {
+                         ...bodyCompetition,
+                         date: new Date(bodyCompetition.date)
+                     },
+                 ],
+                },
             },
-        },
-        include: {
-            competition: true,
-        },
-        })
-        .then((result)=>{
-            console.log(result)
+            include: {
+                competition: true,
+            },
+            })
             res.json({data: result})
-        })
-        .catch(error=>{
-            console.error(error)
-            res.status(500).json(error)
-        })
+    }catch (error) {
+        console.error({error})
+    
+        res.status(500).json({error: error.message})
+    }
 }
 
-module.exports = { getAllRacetracks, createOneRacetrackAndCompetition}
-
+module.exports = { 
+    getAllRacetracks,
+    getOneRacetrackById,
+    updateRacetrackById,
+    createOneRacetrackAndCompetition
+}
 
