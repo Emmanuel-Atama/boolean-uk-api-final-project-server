@@ -10,4 +10,22 @@ try {
     res.status(500).json({error: error.message})
 }
 }
-module.exports = { getAllDrivers}
+
+const getOneDriverById = async (req, res) => {
+    console.log("req.params", req.params.id)
+    try{
+        const driver = await prisma.driver.findUnique({
+            where: {
+                id: parseInt(req.params.id),
+            },
+        })
+        res.json({data: driver});
+    }
+    catch(error){
+        console.error(error)
+        res.status(500).json({error})
+    }
+}
+
+module.exports = { getAllDrivers, getOneDriverById}
+
