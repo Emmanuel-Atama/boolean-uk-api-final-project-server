@@ -34,19 +34,53 @@ const updateRacetrackById = async (req, res) => {
   
     const updatedRacetrack = req.body
     try {
-const updateRacetrack = await prisma.racetrack.update({
+const result = await prisma.racetrack.update({
     where: { id },
     data: {updatedRacetrack}
 })
-res.json({data})
+res.json({data: result})
     } catch (error) {
         console.error({error})
     
         res.status(500).json({error: error.message})
     }
 }
+
+const createOneRacetrackAndCompetition = async (req,res) => {
+    const bodyRacetrack = req.body
+    const bodyCompetition = req.body.competition
+    delete bodyRacetrack.competition
+
+    console.log("bodyCompetition", bodyCompetition)
+    try {
+        const result = await prisma.racetrack.create({
+            data: {
+                ...bodyRacetrack,
+                competition: {
+                 create: [
+                     {
+                         ...bodyCompetition,
+                         date: new Date(bodyCompetition.date)
+                     },
+                 ],
+                },
+            },
+            include: {
+                competition: true,
+            },
+            })
+            res.json({data: result})
+    }catch (error) {
+        console.error({error})
+    
+        res.status(500).json({error: error.message})
+    }
+}
+
 module.exports = { 
     getAllRacetracks,
     getOneRacetrackById,
-    updateRacetrackById
+    updateRacetrackById,
+    createOneRacetrackAndCompetition
 }
+
