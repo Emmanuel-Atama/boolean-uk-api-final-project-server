@@ -13,6 +13,8 @@ try {
 
 // POST for creating a record and a related record
 
+
+
 function createOneRacetrackAndCompetition (req,res){
     const bodyRacetrack = req.body
     const bodyCompetition = req.body.competition
