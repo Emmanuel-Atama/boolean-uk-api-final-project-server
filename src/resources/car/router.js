@@ -1,11 +1,11 @@
 const express = require("express");
 
-const { getAllCars, CreateOneCar } = require("./controller");
+const { getAllCars, CreateOne } = require("./controller");
 
 const router = express.Router();
 
 router.get("/", getAllCars)
 
-router.post("/", CreateOneCar)
+router.post("/", CreateOne)
 
 module.exports = router;

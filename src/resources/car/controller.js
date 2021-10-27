@@ -13,13 +13,13 @@ try {
 }
 
 
-const CreateOneCar = async (req, res) => {
+const CreateOne = async (req, res) => {
     const { model } = req.body
     try {
-        const carToCreate = await prisma.car.create({
+        const CreateOne = await prisma.car.create({
                 data:  { model } ,
             })
-            res.json({data: carToCreate})
+            res.json({data: CreateOne})
     } catch (error) {
         console.error({error})  
       
@@ -29,5 +29,5 @@ const CreateOneCar = async (req, res) => {
 
 module.exports = { 
 getAllCars, 
-CreateOneCar
+CreateOne
 }
