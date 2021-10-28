@@ -1,4 +1,3 @@
-const { car } = require("../../utils/database")
 const prisma = require("../../utils/database")
 
 const getAllCars = async (req, res) => {
@@ -13,13 +12,13 @@ try {
 }
 
 
-const CreateOne = async (req, res) => {
+const createOne = async (req, res) => {
     const { model } = req.body
     try {
-        const CreateOne = await prisma.car.create({
+        const createOne = await prisma.car.create({
                 data:  { model } ,
             })
-            res.json({data: CreateOne})
+            res.json({data: createOne})
     } catch (error) {
         console.error({error})  
       
@@ -29,5 +28,5 @@ const CreateOne = async (req, res) => {
 
 module.exports = { 
 getAllCars, 
-CreateOne
+createOne
 }

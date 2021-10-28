@@ -12,10 +12,15 @@ try {
 }
 
 const createOne = async (req, res) => {
-    const { model } = req.body
+    const { sponsorName, teamId } = req.body
     try {
         const createOne = await prisma.sponsor.create({
-                data:  { model } ,
+                data:  {
+                    team: {
+                        connect: {id: teamId},
+                    },
+                    sponsorName    //don't need :sponsorName cause they have same name
+                },
             })
             res.json({data: createOne})
     } catch (error) {
