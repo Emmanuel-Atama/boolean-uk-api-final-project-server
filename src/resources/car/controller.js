@@ -42,6 +42,6 @@ const deleteById = async (req, res) => {
 }
 module.exports = { 
 getAllCars, 
-CreateOne,
+createOne,
 deleteById
 }
