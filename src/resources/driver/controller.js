@@ -25,6 +25,25 @@ const getOneDriverById = async (req, res) => {
         console.error(error)
         res.status(500).json({error})
     }
+
+    const createOne = async (req, res) => {
+        const { firstName, lastName, carId } = req.body
+        try {
+            const createOne = await prisma.driver.create({
+                    data:  {
+                        driver: {
+                            connect: {id: carId},
+                        },
+                        firstName, lastName
+                    },
+                })
+                res.json({data: createOne})
+        } catch (error) {
+            console.error({error})  
+          
+            res.status(500).json({ error: error.message})
+          }
+    }
 }
 
 module.exports = { getAllDrivers, getOneDriverById}
