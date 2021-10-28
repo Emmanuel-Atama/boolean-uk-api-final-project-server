@@ -26,8 +26,23 @@ const CreateOne = async (req, res) => {
         res.status(500).json({ error: error.message})
       }
 }
+const deleteById = async (req, res) => {
+    console.log("req.params", req.params.id)
+    try {
+        const deleteById = await prisma.car.delete({
+            where: {
+                id: parseInt(req.params.id),
+            },
+        })
+        res.json({data: deleteById})
+    } catch (error) {
+        console.error({error})
 
+        res.status(500).json({error: error.message})
+    }
+}
 module.exports = { 
 getAllCars, 
-CreateOne
+CreateOne,
+deleteById
 }
